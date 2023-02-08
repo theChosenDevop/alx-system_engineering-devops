@@ -1,2 +1,2 @@
 #!/bin/bash\n
-excutes command according to bash syntax
+excutes command according to bash syntax\n
