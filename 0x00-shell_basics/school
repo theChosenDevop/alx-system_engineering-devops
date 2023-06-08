@@ -1,3 +1,2 @@
-#!/bin/bash
-0 string SCHOOL thisisaschool
+0 string SCHOOL school data
 !:mime text/school
