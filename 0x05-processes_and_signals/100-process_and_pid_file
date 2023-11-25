@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# creates and deletes directories and file
+
+remove_folder()
+{
+	rm -r /var/run/myscript.pid
+}
+trap remove_folder QUIT
+pidfile="var/run/myscript.pid"
+mkdir -p "$(dirname "pidfile")"
+touch "$pidfile"
+while :; do
+	echo"To infinity and beyond"
+	trap 'echo"I hate the kill command"' TERM
+	trap 'echo"Y U no love me?!"' INT
+done
