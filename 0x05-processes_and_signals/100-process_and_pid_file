@@ -6,15 +6,13 @@
 # Deletes the file /var/run/myscript.pid and terminates itself
 # when receiving a SIGQUIT or SIGTERM signal
 
-pid_file="/var/run/myscript.id"
-
 remove_file()
 {
-	rm "$pid_file"
+	rm /var/run/myscript.id
 	exit
 }
 
-echo "$$" > "$pid_file"
+echo "$$" > /var/run/myscript.id
 
 while :; do
 	echo "To infinity and beyond"
