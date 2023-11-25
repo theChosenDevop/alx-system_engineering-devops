@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Bash script writes to /tmp/my_process
+
+while :;
+do
+	echo "I am alive" >> /tmp/my_process
+	sleep 2
+done
