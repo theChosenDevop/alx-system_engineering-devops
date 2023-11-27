@@ -9,7 +9,7 @@ i=0
 
 while [ $i -le 100 ]
 do
-	if [[ $((i % 3)) -eq 0 ]] && [[ $((i % 5)) -eq 0 ]]
+	if [[ $((i % 3)) -eq 0  &&  $((i % 5)) -eq 0 ]]
 	then
 		echo "FizzBuzz"
 	elif [[ $((i % 3)) -eq 0 ]]

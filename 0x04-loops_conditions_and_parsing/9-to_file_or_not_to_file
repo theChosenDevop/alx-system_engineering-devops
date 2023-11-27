@@ -17,7 +17,7 @@ then
 	then
 		echo "school file is not empty"
 	else
-		echo "school is empty"
+		echo "school file is empty"
 	fi
 	if [ -f "$file_path" ]
 	then
