@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#Bash Script displays
+#the content of the current directory
+#In a list format
+#Where only the part of the name the first dash
+#is displayed
+
+curr_dir="./*"
+
+for file in $curr_dir
+do
+	if [ -f "$file" ]; then
+		name_part=$(basename "$file" | cut -d '-' -f2)
+		echo "$name_part"
+	fi
+done
