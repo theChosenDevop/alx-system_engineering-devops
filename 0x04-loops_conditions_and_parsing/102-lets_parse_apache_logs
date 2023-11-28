@@ -3,4 +3,5 @@
 # HTTP status code from the Apache log file
 # Format: IP HTTP_CODE in a list format
 
-awk '$1 ~ /^[0-9]/ { print $1, $9 }' apache-access.log
+#awk '$1 ~ /^[0-9]/ { print $1, $9 }' apache-access.log
+awk '{ print $1 " " $9}' apache-access.log

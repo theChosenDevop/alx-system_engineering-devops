@@ -3,7 +3,10 @@
 
 file_path=/etc/passwd
 
-while IFS=: read -r username password user_id group_id user_id_info home command_shell
-do
-	echo "The user $username is part of the $group_id gang, lives in $home and rides $command_shell. $user_id place is protected by the passcode $password, more info about the user her: $user_id_info"
+while IFS=: read -r username password user_id group_id user_id_info home command_shell; do
+	echo "The user $username is part of the $group_id gang,"\
+		"lives in $home and rides $command_shell."\
+		"$user_id place is protected by the passcode"\
+		"$password, more info about the user her: "\
+		"$user_id_info"
 done < $file_path
