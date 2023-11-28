@@ -18,6 +18,6 @@ while :; do
 	echo "To infinity and beyond"
 	sleep 2
 	trap 'echo "Y U no love me?!"' SIGINT
-	trap 'echo "I hate the kill command" && remove_file' TERM
+	trap 'echo "I hate the kill command" && remove_file' SIGTERM
 	trap 'remove_file' SIGQUIT
 done
