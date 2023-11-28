@@ -8,7 +8,7 @@
 
 remove_file()
 {
-	rm /var/run/myscript.id
+	rm /var/run/myscript.pid
 	exit
 }
 
