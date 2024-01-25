@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
+./1-install_nginx_web_server
+
+nginx_conf_dir="/etc/nginx/sites-available"
+my_domain="thechosendevop.tech"
+new_destination="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+echo "server {
+	listen 80;
+	server_name $my_domain;
+
+	location /redirect_me {
+		return 301 $new_destination;
+	}
+}" | sudo tee "$nginx_conf_dir/3-redirection"  > /dev/null
+
+sudo ln -s "$nginx_conf_dir/3-redirection" "/etc/nginx/sites-enabled/"
+
+sudo service nginx restart
+
+echo Nginx redirection configured successfully!""
