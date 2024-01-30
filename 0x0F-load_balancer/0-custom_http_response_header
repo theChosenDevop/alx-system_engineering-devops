@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+#Install Nginx
+sudo apt update
+sudo apt -y install nginx
+
+#Back default configuration file
+#sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+#configure Nginx
+sudo sed -i '/server_tokens\a \ \ add_header X-Served-By $hostname;' /etc/nginx/nginx.conf
+
+# Disable server tokens
+sudo sed -i 's/server_tokens on;/server_tokens off;/' /etc/nginx/nginx.conf
+
+sudo systemctl restart nginx
