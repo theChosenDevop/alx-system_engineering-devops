@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
 # Configure your Nginx server so that /redirect_me is redirecting to another page.
-./1-install_nginx_web_server
 
-nginx_conf_dir="/etc/nginx/sites-available"
-my_domain="thechosendevop.tech"
-new_destination="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+sudo apt-get upgrade
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 
-echo "server {
-	listen 80;
-	server_name $my_domain;
+sudo sed -i 's/# listen 80;/listen 80;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# listen \[::\]:80;/listen \[::\]:80;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# server_name _;/server_name _;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# root \/var\/www\/html;/root \/var\/wwww\/html;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# index index.html;/index index.html;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# location \/ {/location \/ {\n       try_files $uri $uri\/ =404;\n    }/g' /etc/nginx/sites-available/default
+sudo sed -i 's/# location \/hello {/location \/hello {\n       return 200 \"Hello World!\";\n    }/g' /etc/nginx/sites-available/default
 
-	location /redirect_me {
-		return 301 $new_destination;
-	}
-}" | sudo tee "$nginx_conf_dir/3-redirection"  > /dev/null
+sudo sed -i 's/# listen 80;/listen 80;/g' /etc/nginx/sites-available/redirect_me
+sudo sed -i 's/# listen \[::\]:80;/listen \[::\]:80;/g' /etc/nginx/sites-available/redirect_me
+sudo sed -i 's/# server_name _;/server_name _;/g' /etc/nginx/sites-available/redirect_me
+sudo sed -i 's/# location \/redirect_me {/location \/redirect_me {\n       return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n   }/g' /etc/nginx/sites-available/redirect_me
 
-sudo ln -s "$nginx_conf_dir/3-redirection" "/etc/nginx/sites-enabled/"
-
+sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled
+sudo nginx -t
 sudo service nginx restart
-
-echo Nginx redirection configured successfully!""
