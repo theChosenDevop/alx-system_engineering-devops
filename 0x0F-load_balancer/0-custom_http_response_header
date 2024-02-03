@@ -3,8 +3,8 @@
 # a custom header (on web-01 and web-02)
 
 # Install Nginx
-echo "Hello World" > /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
+echo "Hello World" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
 
 echo "server{
 	listen 80;
@@ -12,20 +12,18 @@ echo "server{
 
 	server_name _;
 
-	error_page 404 /custom_404.html;
+	error_page 404 /404.html;
 	add_header X-Served-By $HOSTNAME;
 
-	location / {
-		root /var/www/html;
-		index index.html;
-	}
+	root /var/www/html;
+	index index.html;
+
 
 	location /redirect_me {
 		return 301 https://github.com/theChosenDevop;
 	}
 	
-	location /404 {
-		root /var/www/html;
+	location = /404.html {
 		internal;
 	}
 }" | sudo tee /etc/nginx/sites-available/default
