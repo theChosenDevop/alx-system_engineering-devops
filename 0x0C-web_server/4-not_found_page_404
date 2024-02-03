@@ -6,11 +6,10 @@ sudo apt-get update -y
 sudo apt-get install nginx -y
 sudo chown -R ubuntu /var/www
 
-# 301 redirection
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-#string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/theChosenDevop permanent;\n\troot \/var\/www\/html;\n\tindex index.html;"
-#sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+string_for_replacement="server_name _;\n\troot \/var\/www\/html;\n\tindex index.html;\n\tlocation \/redirect_me{\n\treturn 301 https:\/\/github.com\/theChosenDevop;\n}"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
 # 404 error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
