@@ -1,4 +1,5 @@
-#configure Nginx so that its HTTP response contains
+#!/usr/bin/env bash
+# configure Nginx so that its HTTP response contains
 # a custom header (on web-01 and web-02)
 # Install Nginx
 
