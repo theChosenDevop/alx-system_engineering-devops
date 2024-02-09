@@ -1,31 +1,26 @@
-#!/usr/bin/env bash
-#Configure Nginx so that its HTTP response contains
+#configure Nginx so that its HTTP response contains
 # a custom header (on web-01 and web-02)
-
 # Install Nginx
-echo "Hello World" > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-echo "server{
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo touch /var/www/html/index.html /var/www/html/404.html
+
+echo "Hello World" | sudo tee /var/www/html/index.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+sudo echo "server{
 	listen 80;
 	listen [::]:80;
-
 	server_name _;
-
 	error_page 404 /404.html;
 	add_header X-Served-By $HOSTNAME;
-
 	root /var/www/html;
 	index index.html;
-
-
 	location /redirect_me {
 		return 301 https://github.com/theChosenDevop;
 	}
-	
 	location = /404.html {
 		internal;
 	}
 }" | sudo tee /etc/nginx/sites-available/default
 sudo service nginx restart
-sudo nginx -t
