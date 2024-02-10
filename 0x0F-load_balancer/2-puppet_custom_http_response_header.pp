@@ -1,9 +1,10 @@
--- Automate the task of creating a custom HTTP header response using puppet
+# Create custom HTTP header response
 
-class {'nginx': }
+# Install Nginx
+class { 'nginx': }
 
-# configure Nginx
-file {'/etc/nginx/conf.d/custom_headers.conf':
+# Configure Nginx
+file { '/etc/nginx/conf.d/custom_headers.conf':
   ensure  => file,
   owner   => 'root',
   group   => 'root',

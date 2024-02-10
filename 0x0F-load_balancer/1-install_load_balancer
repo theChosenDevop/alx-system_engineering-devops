@@ -1,21 +1,29 @@
 #!/usr/bin/env bash
-#install HAproxy
+# Script install HAproxy and configures it
 
-sudo apt-get -y update
-sudo apt-get install --no-install-recommends software-properties-common
-sudo add-apt-respository ppa:vbernat/haproxy-2.8
-sudo apt-get install -y haproxy
+apt-get -y update
+apt-get install -y --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.8
+apt-get install -y haproxy
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
-echo "CONFIG=/etc/haproxy/haproxy.cfg" | sudo tee -a /etc/default/haproxy
 
-echo "
-frontend front
-  bind *:80
-  default_backend web-backend
+cp -a /etc/haproxy/haproxy.cfg{,.original_copy}
 
-backend web-backend
-  balance roundrobin
-  server 240049-web-01 3.84.255.185:80 check  server 240049-web-02 54.157.182.6:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+HA_CONFIG="
+        frontend my_frontend
+                bind *:80
+                mode http
+                option httpclose
+                option forwardfor
+                default_backend my_backend
 
-sudo service haproxy restart
+        backend my_backend
+                balance roundrobin
+                mode http
+		server 240049-web-01 3.84.255.185:80 check
+		server 240049-web-02 54.157.182.6:80 check
+        "
+echo "$HA_CONFIG" > /etc/haproxy/haproxy.cfg
+
+echo "ENABLED=1" > /etc/default/haproxy
+service haproxy restart
