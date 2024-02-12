@@ -1,0 +1,12 @@
+# HAproxy redirects HTTP traffic to HTTPS
+
+frontend front
+  bind *:80
+  bind *:443 ssl crt /etc/haproxy/certs/www.thechosendevop.tech.pem
+  redirect scheme https code 301 if !{ ssl_fc }
+  default_backend web-backend
+
+backend web-backend
+  balance roundrobin
+  server 240049-web-01 3.84.255.185:80 check
+  server 240049-web-02 54.157.182.6:80 check
