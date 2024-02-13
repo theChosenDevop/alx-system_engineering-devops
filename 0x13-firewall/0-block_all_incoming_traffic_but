@@ -3,6 +3,6 @@ sudo apt update
 sudo apt upgrade -y 
 sudo ufw allow ssh/tcp
 sudo ufw allow 443/tcp
-sudo ufw allow http/tcp
+sudo ufw allow https/tcp
 sudo ufw enable
 sudo ufw status
