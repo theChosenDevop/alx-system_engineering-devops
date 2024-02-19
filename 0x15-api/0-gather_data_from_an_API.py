@@ -1,38 +1,33 @@
 #!/usr/bin/python3
 """This is the 0-gather_data_from_an_API module"""
+
+
 import requests
 from sys import argv
 
 
-def get_employee_task_done(employee_id):
-    """Returns user TODO list data."""
-    base_url = "https://jsonplaceholder.typicode.com"
-    user_url = f"{base_url}/users/{employee_id}"
-    todos_url = f"{base_url}/todos?userId={employee_id}"
-
-    try:
-        user_response = requests.get(user_url)
-        todos_response = requests.get(todos_url)
-
-        user_data = user_response.json()
-        todos_data = todos_response.json()
-
-        employee_name = user_data["name"]
-        total_tasks = len(todos_data)
-        done_tasks = sum(1 for task in todos_data if task["completed"])
-
-        print("Employee {} is done with tasks({}/{}):".format(employee_name,
-                                                              done_tasks,
-                                                              total_tasks
-                                                              ))
-        for task in todos_data:
-            if task["completed"]:
-                print(f"\t {task['title']}")
-
-    except requests.RequestException as e:
-        print(f"Error fetching data: {e}")
-
-
 if __name__ == "__main__":
-    employee_id = argv[1]
-    get_employee_task_done(employee_id)
+    users = requests.get(
+            "https://jsonplaceholder.typicode.com/users?id=" + argv[1])
+    todos = requests.get(
+            "https://jsonplaceholder.typicode.com/todos?userId=" + argv[1])
+
+    users_json = users.json()
+    todos_json = todos.json()
+    done_tasks = 0
+    total_tasks = 0
+    task_list = []
+
+    for data in todos_json:
+        if data['completed'] is True:
+            done_tasks += 1
+            task_list.append(data['title'])
+        total_tasks += 1
+
+    employee_name = users_json[0]['name']
+
+    print('Employee {} is done with tasks({}/{}):'.
+            format(employee_name, done_tasks, total_tasks))
+
+    for task in task_list:
+        print('\t' + task)
