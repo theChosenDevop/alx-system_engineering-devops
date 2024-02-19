@@ -26,8 +26,10 @@ if __name__ == "__main__":
 
     employee_name = users_json[0]['name']
 
-    print('Employee {} is done with tasks({}/{}):'.
-            format(employee_name, done_tasks, total_tasks))
+    print(
+            'Employee {} is done with tasks({}/{}):'.
+            format(employee_name, done_tasks, total_tasks)
+            )
 
     for task in task_list:
         print('\t' + task)
