@@ -36,7 +36,7 @@ def get_employee_todo_progress(employee_id):
         json_filename = "{}.json".format(employee_id)
         with open(json_filename, "w") as json_file:
             json.dump(employee_data, json_file, indent=4)
-    
+ 
     except requests.RequestException as e:
         print("Error fetching data: {e}")
 
