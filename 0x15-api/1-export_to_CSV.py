@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the 2-export_to_JSON module"""
+"""This is the 1-export_to_CSV module"""
 
 
 import csv
