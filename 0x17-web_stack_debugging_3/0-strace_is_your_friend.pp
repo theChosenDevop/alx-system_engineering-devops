@@ -1,9 +1,6 @@
-# wordpresss_setup.pp
+# fixes bad "phpp" extension to "php" in "wp-settings.php"
 
-# define file resource to manage wp-settings.php
-file { '/var/www/html/wp-settings.php':
-  ensure  => file,
-  content => template('wordpress/wp-settings.erb'),
-  require => Package['wordpress'],
-  notify  => Service['apache2'],
+exec { 'fix-wordpress':
+  command => '/bin/sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => ['/usr/local/bin/', '/usr/bin/'],
 }
