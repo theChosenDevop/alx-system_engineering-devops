@@ -4,6 +4,6 @@
 file { '/var/www/html/wp-settings.php':
   ensure  => file,
   content => template('wordpress/wp-settings.erb'),
-  require => Package['wordpress'], 
+  require => Package['wordpress'],
   notify  => Service['apache2'],
 }
